@@ -3,183 +3,228 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Primeiro Voo Sem Medo</title>
-  <meta name="description" content="Curso Primeiro Voo Sem Medo. Evite prejuízos, multas e erros ilegais antes de levantar seu drone do chão.">
+  <title>Curso Primeiro Voo Sem Medo</title>
+
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      color: #222;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
-    header {
+    body {
       background: #000;
       color: #fff;
-      padding: 60px 20px;
-      text-align: center;
+      overflow-x: hidden;
     }
 
-    header img {
-      max-width: 320px;
-      width: 100%;
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 80px 20px 60px;
+    }
+
+    .hero h1 {
+      font-size: 42px;
       margin-bottom: 20px;
     }
 
-    section {
-      padding: 60px 20px;
-      max-width: 1100px;
-      margin: auto;
+    .hero h1 span {
+      color: #00ff88;
     }
 
-    .beneficios {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
+    .hero p {
+      font-size: 18px;
+      opacity: 0.9;
+      margin-bottom: 40px;
     }
 
-    .box {
-      background: #fff;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-      text-align: center;
-    }
-
-    .box img {
-      width: 60px;
-      margin-bottom: 15px;
+    .hero img {
+      max-width: 420px;
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 0 40px rgba(0, 255, 136, 0.25);
     }
 
     .cta {
-      background: #0a7cff;
-      color: #fff;
-      text-align: center;
-      padding: 60px 20px;
+      margin-top: 50px;
     }
 
-    .cta a {
-      background: #25d366;
-      color: #fff;
-      padding: 15px 30px;
-      text-decoration: none;
-      border-radius: 50px;
-      font-size: 18px;
+    .btn {
+      position: relative;
       display: inline-block;
-      margin-top: 20px;
+      padding: 18px 42px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #000;
+      background: #00ff88;
+      border-radius: 40px;
+      text-decoration: none;
+      overflow: hidden;
+      animation: pulse 2s infinite;
     }
 
-    .feedbacks {
+    .btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.4);
+      transform: skewX(-25deg);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% { left: -75%; }
+      50% { left: 125%; }
+      100% { left: 125%; }
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.6); }
+      70% { box-shadow: 0 0 0 18px rgba(0, 255, 136, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
+    }
+
+    .section {
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    .section h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .section h2 span {
+      color: #00ff88;
+    }
+
+    .section p {
+      max-width: 700px;
+      margin: 0 auto 40px;
+      opacity: 0.85;
+      font-size: 17px;
+    }
+
+    .benefits {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
     }
 
-    .feedbacks img {
-      width: 100%;
-      border-radius: 10px;
+    .benefit {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 16px;
+      border: 1px solid rgba(0, 255, 136, 0.15);
+    }
+
+    .benefit img {
+      width: 48px;
+      margin-bottom: 15px;
+    }
+
+    .benefit h3 {
+      color: #00ff88;
+      margin-bottom: 10px;
     }
 
     .video {
-      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(0, 255, 136, 0.25);
     }
 
-    .video iframe {
+    iframe {
       width: 100%;
-      max-width: 800px;
-      height: 450px;
-      border-radius: 10px;
+      height: 400px;
       border: none;
     }
 
-    .whatsapp-float {
+    .whatsapp {
       position: fixed;
       right: 20px;
       bottom: 20px;
-      z-index: 1000;
+      z-index: 999;
     }
 
-    .whatsapp-float img {
+    .whatsapp img {
       width: 60px;
     }
 
-    footer {
-      background: #111;
-      color: #fff;
-      text-align: center;
-      padding: 30px 20px;
-      font-size: 14px;
+    .verified {
+      margin-top: 30px;
+      opacity: 0.85;
     }
   </style>
 </head>
-
 <body>
 
-<header>
-  <img src="imagens/capa.jpg" alt="Curso Primeiro Voo Sem Medo">
-  <h1>Primeiro Voo Sem Medo</h1>
-  <p>Evite prejuízos, multas e erros ilegais antes de levantar seu drone do chão</p>
-</header>
+  <section class="hero">
+    <div class="container">
+      <h1>Curso <span>Primeiro Voo</span> Sem Medo</h1>
+      <p>Evite <span style="color:#00ff88">prejuízos</span>, <span style="color:#00ff88">multas</span> e erros ilegais antes de levantar o drone do chão</p>
+      <img src="imagens/capa.jpg" alt="Capa do curso">
 
-<section>
-  <h2>O que você vai aprender</h2>
-  <div class="beneficios">
-    <div class="box">
-      <img src="imagens/icon1.jpg" alt="Legalização">
-      <h3>Legalização</h3>
-      <p>Entenda as regras da ANAC, DECEA e evite problemas legais.</p>
+      <div class="cta">
+        <a href="#" class="btn">Quero Voar com Segurança</a>
+      </div>
+
+      <div class="verified">
+        <img src="imagens/icon1.jpg" alt="Loja verificada" width="90">
+      </div>
     </div>
+  </section>
 
-    <div class="box">
-      <img src="imagens/icon2.jpg" alt="Segurança">
-      <h3>Segurança</h3>
-      <p>Aprenda a voar com confiança, evitando quedas e prejuízos.</p>
+  <section class="section">
+    <div class="container">
+      <h2>O que você vai <span>aprender</span></h2>
+      <p>Um método direto para sair do zero e voar com consciência, segurança e respaldo legal.</p>
+
+      <div class="benefits">
+        <div class="benefit">
+          <img src="imagens/icon2.jpg" alt="">
+          <h3>Legislação</h3>
+          <p>Entenda as regras e evite problemas legais.</p>
+        </div>
+        <div class="benefit">
+          <img src="imagens/icon2.jpg" alt="">
+          <h3>Segurança</h3>
+          <p>Reduza riscos e prejuízos em cada voo.</p>
+        </div>
+        <div class="benefit">
+          <img src="imagens/icon2.jpg" alt="">
+          <h3>Confiança</h3>
+          <p>Voe com clareza e domínio desde o início.</p>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="video">
-  <h2>Assista uma prévia</h2>
-  <iframe
-    src="https://www.youtube.com/embed/Z_m6XBq1Tr4?rel=0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen>
-  </iframe>
-</section>
+  <section class="section">
+    <div class="container">
+      <h2>Veja como funciona na <span>prática</span></h2>
+      <div class="video">
+        <iframe src="https://www.youtube.com/embed/Z_m6XBq1Tr4" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
 
-<section>
-  <h2>Feedback de alunos</h2>
-  <div class="feedbacks">
-    <img src="imagens/feedback1.jpg" alt="Feedback 1">
-    <img src="imagens/feedback2.jpg" alt="Feedback 2">
-    <img src="imagens/feedback3.jpg" alt="Feedback 3">
-  </div>
-</section>
-
-<section class="cta">
-  <h2>Comece hoje mesmo</h2>
-  <p>Aprenda do jeito certo antes de cometer erros caros</p>
-  <a href="https://wa.me/55SEUNUMEROAQUI" target="_blank">Quero me inscrever</a>
-</section>
-
-<a class="whatsapp-float" href="https://wa.me/55SEUNUMEROAQUI" target="_blank">
-  <img src="imagens/icon1.jpg" alt="WhatsApp">
-</a>
-
-<footer>
-  <p>Curso Primeiro Voo Sem Medo © Todos os direitos reservados</p>
-  <p>Loja verificada</p>
-</footer>
-
-<script>
-if ('caches' in window) {
-  caches.keys().then(function(names) {
-    for (let name of names) {
-      caches.delete(name)
-    }
-  })
-}
-</script>
+  <a href="https://wa.me/5500000000000" class="whatsapp" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+  </a>
 
 </body>
 </html>
