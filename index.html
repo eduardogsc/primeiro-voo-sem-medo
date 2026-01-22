@@ -107,11 +107,17 @@ h1 span{color:var(--green)}
 }
 
 .card{
-  background:linear-gradient(145deg,#050505,#111);
-  border:1px solid #1c1c1c;
+  background:#050505;
+  border:1.5px solid rgba(0,255,136,.55);
   border-radius:18px;
   padding:34px;
-  animation:card 3s infinite
+  animation:card 3s infinite;
+  box-shadow:0 0 0 rgba(0,255,136,0);
+}
+.card h3{
+  color:var(--green);
+  font-weight:800;
+  margin-bottom:10px;
 }
 @keyframes card{50%{transform:scale(1.04)}}
 
@@ -226,7 +232,11 @@ footer{text-align:center;padding:40px 20px;color:#777;font-size:.9rem}
 <section style="text-align:center">
   <h2>Faça agora por apenas</h2>
   <div class="price"><span>10x</span> de R$ 12,02</div>
-  <p class="lead">Acesso imediato + garantia de 7 dias</p>
+  <p class="lead">
+    Se você deixar pra depois, vai continuar voando no risco.
+    <br>
+    Aproveite o valor parcelado e <strong>garanta seu acesso agora</strong> antes que o desconto saia do ar.
+  </p>
   <a class="cta" href="https://pay.hotmart.com/N103720618L">COMPRAR AGORA</a>
 </section>
 
@@ -247,16 +257,28 @@ footer{text-align:center;padding:40px 20px;color:#777;font-size:.9rem}
 <section style="text-align:center">
   <h2><span>Garantia</span> incondicional</h2>
   <p class="lead">
-    Você tem <strong>7 dias completos</strong> para testar o curso.
-    Se não gostar por qualquer motivo, devolvemos <strong>100% do seu dinheiro</strong>.
+    Você tem <strong>7 dias completos</strong> para testar o curso sem medo.
+    <br>
+    Se você sentir que não é pra você, é simples: você pede o reembolso e recebe <strong>100% do seu dinheiro de volta</strong>.
+    <br>
+    Sem burocracia, sem enrolação e sem risco nenhum pra você.
   </p>
   <img src="imagens/icon1.png" style="width:120px;margin-top:25px">
 </section>
 
 <section style="text-align:center">
-  <a class="cta" href="https://pay.hotmart.com/N103720618L">FAZER INSCRIÇÃO AGORA</a>
+  <a class="cta" href="https://pay.hotmart.com/N103720618L">QUERO MEU ACESSO AGORA</a>
   <br><br>
-  <img src="imagens/icon2.png" style="max-width:320px">
+
+  <div style="
+    display:inline-block;
+    padding:14px 16px;
+    border-radius:14px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.12);
+  ">
+    <img src="imagens/icon2.png" style="max-width:320px;display:block">
+  </div>
 </section>
 
 <footer>© 2026 – CURSO Primeiro Voo Sem Medo</footer>
