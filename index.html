@@ -348,18 +348,50 @@ setInterval(()=>{
 
 <!-- EFEITO DIGITANDO WHATSAPP -->
 <script>
-const msg = "Ficou alguma dúvida? Fale comigo!";
 const el = document.getElementById("whatsTyping");
-let idx = 0;
 
-function typeWhats(){
-  if(idx < msg.length){
-    el.innerHTML += msg.charAt(idx);
-    idx++;
-    setTimeout(typeWhats, 55);
-  }
+const typingText = "digitando";
+const messageText = "Ficou alguma dúvida? Fale comigo!";
+
+let dotCount = 0;
+let typingInterval;
+let loopTimeout;
+
+function showTyping(){
+  el.innerHTML = "digitando";
+  dotCount = 0;
+
+  typingInterval = setInterval(() => {
+    dotCount = (dotCount + 1) % 4;
+    el.innerHTML = "digitando" + ".".repeat(dotCount);
+  }, 500);
+
+  loopTimeout = setTimeout(showMessage, 3200);
 }
-typeWhats();
+
+function showMessage(){
+  clearInterval(typingInterval);
+  el.innerHTML = "";
+  let i = 0;
+
+  function typeMessage(){
+    if(i < messageText.length){
+      el.innerHTML += messageText.charAt(i);
+      i++;
+      setTimeout(typeMessage, 45);
+    } else {
+      setTimeout(resetLoop, 4000);
+    }
+  }
+  typeMessage();
+}
+
+function resetLoop(){
+  el.innerHTML = "";
+  setTimeout(showTyping, 1200);
+}
+
+showTyping();
 </script>
 
 </body>
