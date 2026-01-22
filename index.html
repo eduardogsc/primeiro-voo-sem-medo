@@ -3,186 +3,85 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oferta Limitada</title>
+<title>CURSO - Primeiro Voo Sem Medo</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #000;
-  color: #fff;
-  text-align: center;
+:root{
+  --green:#00ff88;
+  --green-dark:#00cc6a;
+  --bg:#000;
+  --card:#0a0a0a;
+  --muted:#bdbdbd;
 }
 
-.timer-section {
-  padding: 40px 20px;
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
+body{background:#000;color:#fff;overflow-x:hidden}
+
+/* FEIXES DE LUZ */
+.light{
+  position:fixed;
+  top:-300px;
+  width:420px;
+  height:1400px;
+  background:linear-gradient(180deg,rgba(0,255,136,.25),transparent);
+  filter:blur(90px);
+  animation:move 14s linear infinite;
+  z-index:0
+}
+.light.l{left:-220px}
+.light.r{right:-220px;animation-delay:7s}
+@keyframes move{to{transform:translateY(700px)}}
+
+section{
+  position:relative;
+  z-index:2;
+  max-width:1180px;
+  margin:auto;
+  padding:80px 20px
 }
 
-.timer-title {
-  font-size: 22px;
-  font-weight: bold;
-  margin-bottom: 8px;
+.hero{text-align:center;max-width:900px;margin:auto}
+h1{font-size:3.2rem;font-weight:800;margin-bottom:10px}
+h1 span{color:var(--green)}
+.lead{font-size:1.3rem;color:var(--muted);margin-bottom:35px}
+
+/* CTA */
+.cta{
+  position:relative;
+  display:inline-block;
+  padding:18px 44px;
+  background:linear-gradient(90deg,var(--green),var(--green-dark));
+  color:#000;
+  font-weight:800;
+  border-radius:12px;
+  text-decoration:none;
+  font-size:1.15rem;
+  box-shadow:0 10px 30px rgba(0,0,0,.6), inset 0 0 8px rgba(255,255,255,.35);
+  overflow:hidden;
+}
+.cta::after{
+  content:'';
+  position:absolute;
+  top:0;
+  left:-60%;
+  width:60%;
+  height:100%;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.9),transparent);
+  animation:shine 2.8s infinite;
+}
+@keyframes shine{
+  0%{left:-60%}
+  60%{left:120%}
+  100%{left:120%}
 }
 
-.timer-subtitle {
-  font-size: 15px;
-  opacity: 0.8;
-  margin-bottom: 30px;
-}
-
-.timer-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  flex-wrap: wrap;
-  margin-bottom: 35px;
-}
-
-.timer-icon img {
-  width: 130px;
-  height: auto;
-  animation: pulseGlow 1.8s infinite ease-in-out;
-}
-
-.timer-boxes {
-  display: flex;
-  gap: 12px;
-}
-
-.time-box {
-  background: #00ff88;
-  color: #000;
-  width: 85px;
-  height: 85px;
-  border-radius: 18px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  animation: softPulse 1.5s infinite;
-}
-
-.time-box span {
-  font-size: 24px;
-}
-
-.time-box small {
-  font-size: 12px;
-  margin-top: 4px;
-}
-
-.cta-button {
-  background: linear-gradient(90deg, #00ff88, #00cc66);
-  border: none;
-  padding: 18px 32px;
-  border-radius: 30px;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  animation: buttonGlow 2s infinite;
-}
-
-@keyframes softPulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-@keyframes pulseGlow {
-  0% { transform: scale(1); filter: drop-shadow(0 0 0px #00ff88); }
-  50% { transform: scale(1.06); filter: drop-shadow(0 0 18px #00ff88); }
-  100% { transform: scale(1); filter: drop-shadow(0 0 0px #00ff88); }
-}
-
-@keyframes buttonGlow {
-  0% { box-shadow: 0 0 0px #00ff88; }
-  50% { box-shadow: 0 0 20px #00ff88; }
-  100% { box-shadow: 0 0 0px #00ff88; }
-}
-
-@media (max-width: 600px) {
-  .timer-wrapper {
-    flex-direction: column;
-  }
-  .timer-icon img {
-    width: 110px;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<section class="timer-section">
-
-  <div class="timer-title">
-    Últimas horas com esse valor para iniciantes
-  </div>
-
-  <div class="timer-subtitle">
-    Esse desconto é limitado e não será mantido depois.
-  </div>
-
-  <div class="timer-wrapper">
-
-    <div class="timer-icon">
-      <img src="imagens/icon4.png" alt="Cronômetro">
-    </div>
-
-    <div class="timer-boxes">
-      <div class="time-box">
-        <span id="days">00</span>
-        <small>DIAS</small>
-      </div>
-      <div class="time-box">
-        <span id="hours">00</span>
-        <small>HORAS</small>
-      </div>
-      <div class="time-box">
-        <span id="minutes">00</span>
-        <small>MIN</small>
-      </div>
-      <div class="time-box">
-        <span id="seconds">00</span>
-        <small>SEG</small>
-      </div>
-    </div>
-
-  </div>
-
-  <button class="cta-button">
-    GARANTIR DESCONTO AGORA
-  </button>
-
-</section>
-
-<script>
-const targetDate = new Date("2026-01-22T16:48:00").getTime();
-
-function updateTimer() {
-  const now = new Date().getTime();
-  const distance = targetDate - now;
-
-  if (distance < 0) return;
-
-  document.getElementById("days").innerText =
-    Math.floor(distance / (1000 * 60 * 60 * 24));
-
-  document.getElementById("hours").innerText =
-    Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-
-  document.getElementById("minutes").innerText =
-    Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
-  document.getElementById("seconds").innerText =
-    Math.floor((distance % (1000 * 60)) / 1000);
-}
-
-setInterval(updateTimer, 1000);
-updateTimer();
-</script>
-
-</body>
-</html>
+/* TIMER */
+.countdown{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  ma
