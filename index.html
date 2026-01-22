@@ -87,10 +87,12 @@ h1 span{color:var(--green)}
 .timer-header{
   font-weight:800;
   margin-bottom:6px;
+  font-size:1.05rem;
 }
 .timer-sub{
   color:var(--muted);
   margin-bottom:22px;
+  font-size:.95rem;
 }
 .timer-flex{
   display:flex;
@@ -101,11 +103,23 @@ h1 span{color:var(--green)}
 }
 .timer-icon{
   width:120px;
-  animation:pulse 1.8s infinite;
+  height:auto;
+  animation:timerPulse 1.6s infinite;
+  filter:drop-shadow(0 0 18px rgba(0,255,136,.15));
 }
+@keyframes timerPulse{
+  0%{transform:scale(1); filter:drop-shadow(0 0 14px rgba(0,255,136,.12))}
+  50%{transform:scale(1.05); filter:drop-shadow(0 0 28px rgba(0,255,136,.25))}
+  100%{transform:scale(1); filter:drop-shadow(0 0 14px rgba(0,255,136,.12))}
+}
+
+/* CONTADOR */
 .countdown{
   display:flex;
+  justify-content:center;
   gap:18px;
+  margin:0;
+  flex-wrap:wrap;
 }
 .time-box{
   background:linear-gradient(145deg,var(--green),var(--green-dark));
@@ -119,7 +133,6 @@ h1 span{color:var(--green)}
 .time-box span{display:block;font-size:1.6rem}
 .time-box small{font-size:.7rem;letter-spacing:1px}
 
-/* GRID */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -133,8 +146,13 @@ h1 span{color:var(--green)}
   border-radius:18px;
   padding:34px;
   animation:card 3s infinite;
+  box-shadow:0 0 0 rgba(0,255,136,0);
 }
-.card h3{color:var(--green);margin-bottom:10px}
+.card h3{
+  color:var(--green);
+  font-weight:800;
+  margin-bottom:10px;
+}
 @keyframes card{50%{transform:scale(1.04)}}
 
 /* VIDEO */
@@ -145,9 +163,19 @@ h1 span{color:var(--green)}
   height:500px;
   border-radius:20px;
   border:2px solid var(--green);
+  box-shadow:0 0 40px rgba(0,255,136,.35)
 }
 
-/* FAQ */
+.price{font-size:2.4rem;font-weight:800;margin:15px 0}
+.price span{color:var(--green)}
+
+.faq-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:40px;
+  align-items:center
+}
+
 .faq{
   background:#050505;
   border-radius:16px;
@@ -166,6 +194,7 @@ h1 span{color:var(--green)}
   gap:10px;
   z-index:999;
 }
+
 .whatsapp-bubble{
   background:#0f0f0f;
   border:1px solid rgba(255,255,255,.14);
@@ -174,8 +203,11 @@ h1 span{color:var(--green)}
   font-size:.85rem;
   color:#eaeaea;
   max-width:220px;
+  line-height:1.2;
   box-shadow:0 10px 25px rgba(0,0,0,.55);
+  position:relative;
 }
+
 .whatsapp{
   width:62px;
   height:62px;
@@ -186,15 +218,30 @@ h1 span{color:var(--green)}
   justify-content:center;
   animation:pulse 2.8s infinite;
 }
+
 .whatsapp img{width:34px}
 
 @keyframes pulse{
-  0%{transform:scale(1);box-shadow:0 0 0 0 rgba(37,211,102,.5)}
-  70%{transform:scale(1.05);box-shadow:0 0 0 18px rgba(37,211,102,0)}
-  100%{transform:scale(1)}
+  0%{transform:scale(1); box-shadow:0 0 0 0 rgba(37,211,102,.55)}
+  70%{transform:scale(1.03); box-shadow:0 0 0 18px rgba(37,211,102,0)}
+  100%{transform:scale(1); box-shadow:0 0 0 0 rgba(37,211,102,0)}
 }
 
-footer{text-align:center;padding:40px;color:#777}
+footer{text-align:center;padding:40px 20px;color:#777;font-size:.9rem}
+
+@media(max-width:768px){
+  h1{font-size:2.2rem}
+  .faq-grid{grid-template-columns:1fr}
+  .video-box iframe{height:260px}
+
+  .timer-icon{width:100px}
+
+  .whatsapp-bubble{
+    display:block;
+    font-size:.8rem;
+    max-width:180px;
+  }
+}
 </style>
 </head>
 
@@ -203,39 +250,52 @@ footer{text-align:center;padding:40px;color:#777}
 <div class="light l"></div>
 <div class="light r"></div>
 
-<section class="hero">
-  <h1><span>CURSO</span> – Primeiro Voo Sem Medo</h1>
-  <p class="lead">Aprenda a pilotar seu drone com segurança, sem medo de quebrar ou sofrer multas.</p>
+<section>
+  <div class="hero">
+    <h1><span>CURSO</span> – Primeiro Voo Sem Medo</h1>
+    <p class="lead">Aprenda a pilotar seu drone com segurança, sem medo de quebrar ou sofrer multas.</p>
 
-  <div class="timer-wrap">
-    <div class="timer-header">Últimas horas com esse valor para iniciantes</div>
-    <div class="timer-sub">Esse desconto é limitado e não será mantido depois.</div>
+    <div class="timer-wrap">
+      <div class="timer-header">Últimas horas com esse valor para iniciantes</div>
+      <div class="timer-sub">Esse desconto é limitado e não será mantido depois.</div>
 
-    <div class="timer-flex">
-      <img src="imagens/icon4.png" class="timer-icon">
-      <div class="countdown">
-        <div class="time-box"><span id="d">14</span><small>DIAS</small></div>
-        <div class="time-box"><span id="h">23</span><small>HORAS</small></div>
-        <div class="time-box"><span id="m">59</span><small>MIN</small></div>
-        <div class="time-box"><span id="s">59</span><small>SEG</small></div>
+      <div class="timer-flex">
+        <img src="imagens/icon4.png" alt="Desconto por tempo limitado" class="timer-icon">
+
+        <div class="countdown">
+          <div class="time-box"><span id="d">15</span><small>DIAS</small></div>
+          <div class="time-box"><span id="h">00</span><small>HORAS</small></div>
+          <div class="time-box"><span id="m">00</span><small>MIN</small></div>
+          <div class="time-box"><span id="s">00</span><small>SEG</small></div>
+        </div>
       </div>
-    </div>
 
-    <br>
-    <a class="cta" href="https://pay.hotmart.com/N103720618L">GARANTIR DESCONTO AGORA</a>
+      <a class="cta" href="https://pay.hotmart.com/N103720618L" style="margin-top:18px;display:inline-block;">
+        GARANTIR DESCONTO AGORA
+      </a>
+    </div>
   </div>
 </section>
 
 <section>
   <h2>O prejuízo acontece em <span>segundos</span></h2>
   <p class="lead">A maioria dos drones quebrados se perde por erro básico.</p>
+
   <div class="video-box">
-    <iframe src="https://www.youtube.com/embed/cWKreXRNecI?rel=0&modestbranding=1" allowfullscreen></iframe>
+    <iframe
+      width="100%"
+      height="500"
+      src="https://www.youtube.com/embed/cWKreXRNecI?rel=0&modestbranding=1&showinfo=0"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
   </div>
 </section>
 
 <section>
-  <h2>O que você vai aprender</h2>
+  <h2>O que você vai <span>aprender</span></h2>
   <div class="grid">
     <div class="card"><h3>Técnicas anti-quebra</h3><p>Evite erros que destroem drones.</p></div>
     <div class="card"><h3>Decolagem e pouso</h3><p>Controle total nos momentos críticos.</p></div>
@@ -247,52 +307,120 @@ footer{text-align:center;padding:40px;color:#777}
 <section>
   <h2>O que alunos dizem</h2>
   <div class="grid">
-    <div class="card"><img src="imagens/feedback1.jpg" style="width:100%;border-radius:12px"><p>“Hoje voo tranquilo.”</p></div>
-    <div class="card"><img src="imagens/feedback2.jpg" style="width:100%;border-radius:12px"><p>“Evitei prejuízo.”</p></div>
-    <div class="card"><img src="imagens/feedback3.jpg" style="width:100%;border-radius:12px"><p>“Muito didático.”</p></div>
+    <div class="card"><img src="imagens/feedback1.jpg" style="width:100%;border-radius:12px;margin-bottom:15px"><p>“Hoje voo tranquilo.”</p></div>
+    <div class="card"><img src="imagens/feedback2.jpg" style="width:100%;border-radius:12px;margin-bottom:15px"><p>“Evitei prejuízo.”</p></div>
+    <div class="card"><img src="imagens/feedback3.jpg" style="width:100%;border-radius:12px;margin-bottom:15px"><p>“Muito didático.”</p></div>
   </div>
 </section>
 
 <section style="text-align:center">
-  <h2>Garantia incondicional</h2>
+  <h2>Faça agora por apenas</h2>
+  <div class="price"><span>10x</span> de R$ 12,02</div>
   <p class="lead">
-    Você tem 7 dias completos para testar o curso.  
-    Se não gostar, recebe 100% do dinheiro de volta.
+    Se você deixar pra depois, vai continuar voando no risco. <br>
+    Aproveite o valor parcelado e <strong>garanta seu acesso agora</strong> antes que o desconto saia do ar.
   </p>
-  <img src="imagens/icon1.png" style="width:120px">
+  <a class="cta" href="https://pay.hotmart.com/N103720618L">COMPRAR AGORA</a>
 </section>
 
-<footer>© 2026 – Curso Primeiro Voo Sem Medo</footer>
+<section>
+  <div class="faq-grid">
+    <div>
+      <h2>Dúvidas Frequentes</h2>
+      <div class="faq"><h4>Sou iniciante, o curso me atende?</h4><p>Sim! Curso foi feito para quem nunca pilotou.</p></div>
+      <div class="faq"><h4>Funciona para qualquer drone?</h4><p>Sim.</p></div>
+      <div class="faq"><h4>O acesso é imediato?</h4><p>Sim.</p></div>
+    </div>
+    <div style="text-align:center">
+      <a class="cta" href="https://pay.hotmart.com/N103720618L">QUERO COMEÇAR AGORA</a>
+    </div>
+  </div>
+</section>
 
+<section style="text-align:center">
+  <h2><span>Garantia</span> incondicional</h2>
+  <p class="lead">
+    Você tem <strong>7 dias completos</strong> para testar o curso sem medo. <br>
+    Se você sentir que não é pra você, é simples: você pede o reembolso e recebe <strong>100% do seu dinheiro de volta</strong>. <br>
+    Sem burocracia, sem enrolação e sem risco nenhum pra você.
+  </p>
+  <img src="imagens/icon1.png" style="width:120px;margin-top:25px">
+</section>
+
+<!-- FINAL DA LP (BOTÃO + FORMAS DE PAGAMENTO) -->
+<section style="text-align:center">
+  <a class="cta" href="https://pay.hotmart.com/N103720618L">QUERO MEU ACESSO AGORA</a>
+  <br><br>
+  <div style="
+    display:inline-block;
+    padding:14px 16px;
+    border-radius:14px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.12);
+  ">
+    <img src="imagens/icon2.png" style="max-width:320px;display:block">
+  </div>
+</section>
+
+<footer>© 2026 – CURSO Primeiro Voo Sem Medo</footer>
+
+<!-- WHATSAPP COM TEXTO DIGITANDO -->
 <div class="whatsapp-wrap">
-  <div class="whatsapp-bubble"><span id="whatsTyping"></span></div>
+  <div class="whatsapp-bubble">
+    <span id="whatsTyping"></span>
+  </div>
+
   <a class="whatsapp" href="https://wa.me/5521965792683" target="_blank">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
   </a>
 </div>
 
 <script>
-const totalSeconds = 15*24*60*60;
+const totalSeconds = 15 * 24 * 60 * 60;
 let t = totalSeconds;
+
 setInterval(()=>{
   let d=Math.floor(t/86400),
       h=Math.floor((t%86400)/3600),
       m=Math.floor((t%3600)/60),
       s=t%60;
-  d&&(document.getElementById("d").innerText=d);
+
+  document.getElementById("d").innerText=d;
   document.getElementById("h").innerText=String(h).padStart(2,'0');
   document.getElementById("m").innerText=String(m).padStart(2,'0');
   document.getElementById("s").innerText=String(s).padStart(2,'0');
+
   if(t>0)t--;
 },1000);
+</script>
 
-const el=document.getElementById("whatsTyping");
-const msg="Ficou alguma dúvida? Fale comigo!";
-let i=0;
-setInterval(()=>{
-  el.innerText=msg.substring(0,i++);
-  if(i>msg.length)i=0;
-},80);
+<!-- EFEITO DIGITANDO WHATSAPP -->
+<script>
+const el = document.getElementById("whatsTyping");
+const messageText = "Ficou alguma dúvida? Fale comigo!";
+
+let i = 0;
+let direction = 1;
+
+function typeLoop(){
+  el.innerText = messageText.substring(0, i);
+
+  i += direction;
+
+  if(i > messageText.length){
+    direction = -1;
+    setTimeout(typeLoop, 1200);
+    return;
+  }
+
+  if(i < 0){
+    direction = 1;
+    i = 0;
+  }
+
+  setTimeout(typeLoop, 45);
+}
+typeLoop();
 </script>
 
 </body>
