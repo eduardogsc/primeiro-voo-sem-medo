@@ -229,11 +229,12 @@ footer{text-align:center;padding:40px 20px;color:#777;font-size:.9rem}
     <h1><span>CURSO</span> – Primeiro Voo Sem Medo</h1>
     <p class="lead">Aprenda a pilotar seu drone com segurança, sem medo de quebrar ou sofrer multas.</p>
 
-    <div class="countdown">
-      <div class="time-box"><span id="d">15</span><small>DIAS</small></div>
-      <div class="time-box"><span id="h">00</span><small>HORAS</small></div>
-      <div class="time-box"><span id="m">00</span><small>MIN</small></div>
-      <div class="time-box"><span id="s">00</span><small>SEG</small></div>
+    <!-- CONTADOR TOPO (NOVO) -->
+    <div class="countdown" id="countdown-top">
+      <div class="time-box"><span id="d-top">00</span><small>DIAS</small></div>
+      <div class="time-box"><span id="h-top">00</span><small>HORAS</small></div>
+      <div class="time-box"><span id="m-top">00</span><small>MIN</small></div>
+      <div class="time-box"><span id="s-top">00</span><small>SEG</small></div>
     </div>
 
     <a class="cta" href="https://pay.hotmart.com/N103720618L">GARANTIR DESCONTO AGORA</a>
@@ -247,12 +248,12 @@ footer{text-align:center;padding:40px 20px;color:#777;font-size:.9rem}
   <div class="video-box">
     <iframe
       width="100%"
-  height="500"
-  src="https://www.youtube.com/embed/cWKreXRNecI?rel=0&modestbranding=1&showinfo=0"
-  title="YouTube video player"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowfullscreen>
+      height="500"
+      src="https://www.youtube.com/embed/cWKreXRNecI?rel=0&modestbranding=1&showinfo=0"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
     </iframe>
   </div>
 </section>
@@ -312,7 +313,16 @@ footer{text-align:center;padding:40px 20px;color:#777;font-size:.9rem}
 
 <section style="text-align:center">
   <a class="cta" href="https://pay.hotmart.com/N103720618L">QUERO MEU ACESSO AGORA</a>
-  <br><br>
+
+  <!-- CONTADOR FINAL (NOVO) -->
+  <div class="countdown" id="countdown-bottom" style="margin-top:22px">
+    <div class="time-box"><span id="d-bot">00</span><small>DIAS</small></div>
+    <div class="time-box"><span id="h-bot">00</span><small>HORAS</small></div>
+    <div class="time-box"><span id="m-bot">00</span><small>MIN</small></div>
+    <div class="time-box"><span id="s-bot">00</span><small>SEG</small></div>
+  </div>
+
+  <br>
   <div style="
     display:inline-block;
     padding:14px 16px;
@@ -338,19 +348,48 @@ footer{text-align:center;padding:40px 20px;color:#777;font-size:.9rem}
 </div>
 
 <script>
+/* TIMER POR DATA/HORA FIXA (NOVO)
+   Início: 22/01/2026 às 16:48
+   Duração: 15 dias
+*/
+const startDate = new Date(2026, 0, 22, 16, 48, 0); // mês 0 = Janeiro
 const totalSeconds = 15 * 24 * 60 * 60;
-let t = totalSeconds;
-setInterval(()=>{
-  let d=Math.floor(t/86400),
-      h=Math.floor((t%86400)/3600),
-      m=Math.floor((t%3600)/60),
-      s=t%60;
-  document.getElementById("d").innerText=d;
-  document.getElementById("h").innerText=String(h).padStart(2,'0');
-  document.getElementById("m").innerText=String(m).padStart(2,'0');
-  document.getElementById("s").innerText=String(s).padStart(2,'0');
-  if(t>0)t--;
-},1000);
+
+function updateCountdown(prefix){
+  const now = new Date();
+
+  // tempo que passou desde o início
+  let elapsed = Math.floor((now - startDate) / 1000);
+
+  // se ainda não chegou no horário, não começa
+  if(elapsed < 0) elapsed = 0;
+
+  // tempo restante
+  let remaining = totalSeconds - elapsed;
+
+  // se acabou, trava no zero
+  if(remaining < 0) remaining = 0;
+
+  const d = Math.floor(remaining / 86400);
+  const h = Math.floor((remaining % 86400) / 3600);
+  const m = Math.floor((remaining % 3600) / 60);
+  const s = remaining % 60;
+
+  document.getElementById(`d-${prefix}`).innerText = d;
+  document.getElementById(`h-${prefix}`).innerText = String(h).padStart(2,'0');
+  document.getElementById(`m-${prefix}`).innerText = String(m).padStart(2,'0');
+  document.getElementById(`s-${prefix}`).innerText = String(s).padStart(2,'0');
+}
+
+// atualiza os 2 contadores
+setInterval(() => {
+  updateCountdown("top");
+  updateCountdown("bot");
+}, 1000);
+
+// primeira atualização instantânea
+updateCountdown("top");
+updateCountdown("bot");
 </script>
 
 <!-- EFEITO DIGITANDO WHATSAPP -->
