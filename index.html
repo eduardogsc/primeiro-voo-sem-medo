@@ -469,3 +469,152 @@ footer{text-align:center;padding:40px 20px;color:#777;font-size:.9rem}
 
 <section style="text-align:center">
   <h2>Faça agora por apenas</h2>
+  <div class="price"><span>10x</span> de R$ 12,02</div>
+  <p class="lead">
+    Se você deixar pra depois, vai continuar voando no risco. <br>
+    Aproveite o valor parcelado e <strong>garanta seu acesso agora</strong> antes que o desconto saia do ar.
+  </p>
+  <a class="cta" href="https://pay.hotmart.com/N103720618L">COMPRAR AGORA</a>
+</section>
+
+<section>
+  <div class="faq-grid">
+    <div>
+      <h2>Dúvidas Frequentes</h2>
+      <div class="faq"><h4>Sou iniciante, o curso me atende?</h4><p>Sim! Curso foi feito para quem nunca pilotou.</p></div>
+      <div class="faq"><h4>Funciona para qualquer drone?</h4><p>Sim.</p></div>
+      <div class="faq"><h4>O acesso é imediato?</h4><p>Sim.</p></div>
+    </div>
+    <div style="text-align:center">
+      <a class="cta" href="https://pay.hotmart.com/N103720618L">QUERO COMEÇAR AGORA</a>
+    </div>
+  </div>
+</section>
+
+<section style="text-align:center">
+  <h2><span>Garantia</span> incondicional</h2>
+  <p class="lead">
+    Você tem <strong>7 dias completos</strong> para testar o curso sem medo. <br>
+    Se você sentir que não é pra você, é simples: você pede o reembolso e recebe <strong>100% do seu dinheiro de volta</strong>. <br>
+    Sem burocracia, sem enrolação e sem risco nenhum pra você.
+  </p>
+  <img src="imagens/icon1.png" style="width:120px;margin-top:25px" alt="Garantia 7 dias">
+</section>
+
+<section style="text-align:center">
+  <a class="cta" href="https://pay.hotmart.com/N103720618L">QUERO MEU ACESSO AGORA</a>
+  <br><br>
+  <div style="
+    display:inline-block;
+    padding:14px 16px;
+    border-radius:14px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.12);
+  ">
+    <img src="imagens/icon2.png" style="max-width:320px;display:block" alt="Compra segura">
+  </div>
+</section>
+
+<footer>© 2026 – CURSO Primeiro Voo Sem Medo</footer>
+
+<!-- WHATSAPP COM TEXTO DIGITANDO -->
+<div class="whatsapp-wrap">
+  <div class="whatsapp-bubble">
+    <span id="whatsTyping"></span>
+  </div>
+
+  <a class="whatsapp" href="https://wa.me/5521965792683" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+  </a>
+</div>
+
+<script>
+/* TIMER */
+const totalSeconds = 15 * 24 * 60 * 60;
+let t = totalSeconds;
+
+const timerIcon = document.getElementById("timerIcon");
+
+setInterval(()=>{
+  let d=Math.floor(t/86400),
+      h=Math.floor((t%86400)/3600),
+      m=Math.floor((t%3600)/60),
+      s=t%60;
+
+  document.getElementById("d").innerText=d;
+  document.getElementById("h").innerText=String(h).padStart(2,'0');
+  document.getElementById("m").innerText=String(m).padStart(2,'0');
+  document.getElementById("s").innerText=String(s).padStart(2,'0');
+
+  /* PULSO SINCRONIZADO (pisca leve a cada segundo) */
+  timerIcon.classList.remove("pulse");
+  void timerIcon.offsetWidth;
+  timerIcon.classList.add("pulse");
+
+  if(t>0)t--;
+},1000);
+</script>
+
+<script>
+/* PROGRESSO "VOCÊ ESTÁ AQUI"
+   Ajuste os valores como quiser:
+   35% = viu o desconto
+*/
+const progressPercent = 35;
+
+const fill = document.getElementById("progressFill");
+const pin = document.getElementById("progressPin");
+
+fill.style.width = progressPercent + "%";
+pin.style.left = progressPercent + "%";
+</script>
+
+<!-- EFEITO DIGITANDO WHATSAPP -->
+<script>
+const el = document.getElementById("whatsTyping");
+
+const messageText = "Ficou alguma dúvida? Fale comigo!";
+
+let dotCount = 0;
+let typingInterval;
+let loopTimeout;
+
+function showTyping(){
+  el.innerHTML = "digitando";
+  dotCount = 0;
+
+  typingInterval = setInterval(() => {
+    dotCount = (dotCount + 1) % 4;
+    el.innerHTML = "digitando" + ".".repeat(dotCount);
+  }, 500);
+
+  loopTimeout = setTimeout(showMessage, 3200);
+}
+
+function showMessage(){
+  clearInterval(typingInterval);
+  el.innerHTML = "";
+  let i = 0;
+
+  function typeMessage(){
+    if(i < messageText.length){
+      el.innerHTML += messageText.charAt(i);
+      i++;
+      setTimeout(typeMessage, 45);
+    } else {
+      setTimeout(resetLoop, 4000);
+    }
+  }
+  typeMessage();
+}
+
+function resetLoop(){
+  el.innerHTML = "";
+  setTimeout(showTyping, 1200);
+}
+
+showTyping();
+</script>
+
+</body>
+</html>
