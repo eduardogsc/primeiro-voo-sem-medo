@@ -21,6 +21,48 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
 body{background:#000;color:#fff;overflow-x:hidden}
 
+/* TEXTURA LEVE (SEM PERDER O PRETO) */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+  opacity:.12;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(255,255,255,.06), transparent 45%),
+    radial-gradient(circle at 80% 35%, rgba(0,255,136,.08), transparent 45%),
+    radial-gradient(circle at 40% 85%, rgba(255,255,255,.05), transparent 55%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.04) 0px,
+      rgba(255,255,255,.04) 1px,
+      transparent 1px,
+      transparent 6px
+    );
+  mix-blend-mode:overlay;
+  filter:blur(.2px);
+}
+
+/* BARRA DE PROGRESSO (VOCÊ ESTÁ AQUI) */
+.progress-wrap{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:6px;
+  z-index:9999;
+  background:rgba(255,255,255,.06);
+  backdrop-filter:blur(6px);
+}
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--green),var(--green-dark));
+  box-shadow:0 0 18px rgba(0,255,136,.35);
+  transition:width .08s linear;
+}
+
 /* FEIXES DE LUZ */
 .light{
   position:fixed;
@@ -93,50 +135,10 @@ h1 span{color:var(--green)}
   border-radius:14px;
   min-width:85px;
   text-align:center;
-  font-weight:800;
-  animation:timePulse 1.6s infinite;
+  font-weight:800
 }
 .time-box span{display:block;font-size:1.6rem}
 .time-box small{font-size:.7rem;letter-spacing:1px}
-
-@keyframes timePulse{
-  0%{transform:scale(1)}
-  50%{transform:scale(1.05)}
-  100%{transform:scale(1)}
-}
-
-/* NOVO: TIMER COM IMAGEM AO LADO ESQUERDO */
-.timer-row{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:22px;
-  flex-wrap:wrap;
-  margin-top:10px;
-}
-
-.timer-icon{
-  width:170px;
-  max-width:40vw;
-  height:auto;
-  display:block;
-  animation:timerGlow 1.6s infinite;
-}
-
-@keyframes timerGlow{
-  0%{
-    transform:scale(1);
-    filter:drop-shadow(0 0 0 rgba(0,255,136,0));
-  }
-  50%{
-    transform:scale(1.07);
-    filter:drop-shadow(0 0 18px rgba(0,255,136,.85));
-  }
-  100%{
-    transform:scale(1);
-    filter:drop-shadow(0 0 0 rgba(0,255,136,0));
-  }
-}
 
 .grid{
   display:grid;
@@ -201,7 +203,6 @@ h1 span{color:var(--green)}
 }
 
 .whatsapp-bubble{
-  position:relative;
   background:#0f0f0f;
   border:1px solid rgba(255,255,255,.14);
   padding:10px 14px;
@@ -211,6 +212,7 @@ h1 span{color:var(--green)}
   max-width:220px;
   line-height:1.2;
   box-shadow:0 10px 25px rgba(0,0,0,.55);
+  position:relative;
 }
 
 .whatsapp-bubble::after{
@@ -256,20 +258,16 @@ footer{text-align:center;padding:40px 20px;color:#777;font-size:.9rem}
     font-size:.8rem;
     max-width:180px;
   }
-
-  .timer-icon{
-    width:150px;
-    max-width:70vw;
-  }
-
-  .countdown{
-    margin:18px 0 26px;
-  }
 }
 </style>
 </head>
 
 <body>
+
+<!-- BARRA DE PROGRESSO -->
+<div class="progress-wrap">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
 
 <div class="light l"></div>
 <div class="light r"></div>
@@ -279,8 +277,15 @@ footer{text-align:center;padding:40px 20px;color:#777;font-size:.9rem}
     <h1><span>CURSO</span> – Primeiro Voo Sem Medo</h1>
     <p class="lead">Aprenda a pilotar seu drone com segurança, sem medo de quebrar ou sofrer multas.</p>
 
-    <!-- TIMER COM IMAGEM AO LADO ESQUERDO + TEXTO -->
+    <!-- TIMER COM IMAGEM GRANDE CENTRALIZADA -->
     <div style="text-align:center;margin:25px 0 35px;">
+      <img src="imagens/icon4.png" alt="Desconto por tempo limitado" style="
+        width:220px;
+        max-width:85%;
+        height:auto;
+        display:block;
+        margin:0 auto 18px;
+      ">
 
       <div style="
         font-size:1.05rem;
@@ -298,21 +303,16 @@ footer{text-align:center;padding:40px 20px;color:#777;font-size:.9rem}
         Esse desconto é limitado e não será mantido depois.
       </div>
 
-      <div class="timer-row">
-        <img src="imagens/icon4.png" alt="Desconto por tempo limitado" class="timer-icon">
-
-        <div class="countdown" style="margin:0;">
-          <div class="time-box"><span id="d">15</span><small>DIAS</small></div>
-          <div class="time-box"><span id="h">00</span><small>HORAS</small></div>
-          <div class="time-box"><span id="m">00</span><small>MIN</small></div>
-          <div class="time-box"><span id="s">00</span><small>SEG</small></div>
-        </div>
+      <div class="countdown" style="margin-top:0;">
+        <div class="time-box"><span id="d">15</span><small>DIAS</small></div>
+        <div class="time-box"><span id="h">00</span><small>HORAS</small></div>
+        <div class="time-box"><span id="m">00</span><small>MIN</small></div>
+        <div class="time-box"><span id="s">00</span><small>SEG</small></div>
       </div>
 
       <a class="cta" href="https://pay.hotmart.com/N103720618L" style="margin-top:18px;display:inline-block;">
         GARANTIR DESCONTO AGORA
       </a>
-
     </div>
   </div>
 </section>
@@ -428,6 +428,22 @@ setInterval(()=>{
   document.getElementById("s").innerText=String(s).padStart(2,'0');
   if(t>0)t--;
 },1000);
+</script>
+
+<!-- BARRA DE PROGRESSO (VOCÊ ESTÁ AQUI) -->
+<script>
+const progressBar = document.getElementById("progressBar");
+
+function updateProgress(){
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  progressBar.style.width = progress + "%";
+}
+
+window.addEventListener("scroll", updateProgress);
+window.addEventListener("resize", updateProgress);
+updateProgress();
 </script>
 
 <!-- EFEITO DIGITANDO WHATSAPP -->
