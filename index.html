@@ -24,9 +24,12 @@ body{
   color:#fff;
   overflow-x:hidden;
   position:relative;
+
+  /* espaço pra barra fixa não ficar em cima do conteúdo */
+  padding-top:120px;
 }
 
-/* TEXTURA / GRAIN LEVE NO FUNDO (NÃO PERDE O PRETO) */
+/* TEXTURA / GRAIN LEVE NO FUNDO */
 body::before{
   content:"";
   position:fixed;
@@ -34,8 +37,6 @@ body::before{
   z-index:0;
   pointer-events:none;
   opacity:.16;
-
-  /* textura em camadas */
   background-image:
     radial-gradient(circle at 20% 15%, rgba(255,255,255,.06) 0px, transparent 280px),
     radial-gradient(circle at 80% 35%, rgba(0,255,136,.06) 0px, transparent 320px),
@@ -142,13 +143,10 @@ h1 span{color:var(--green)}
   max-width:38vw;
   height:auto;
   display:block;
-
-  /* brilho leve sempre presente */
   filter: drop-shadow(0 0 14px rgba(0,255,136,.25));
   transform: translateZ(0);
 }
 
-/* EFEITO PULSAR/BRILHO SINCRONIZADO COM O TIMER */
 .timer-icon.pulse{
   animation: timerPulse 1s infinite;
 }
@@ -167,38 +165,49 @@ h1 span{color:var(--green)}
   }
 }
 
-/* BARRA "VOCÊ ESTÁ AQUI" */
+/* BARRA "VOCÊ ESTÁ AQUI" FIXA NO TOPO */
 .progress-wrap{
-  max-width:900px;
-  margin:0 auto 26px;
-  padding:16px 16px 18px;
+  position:fixed;
+  top:14px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(980px, calc(100% - 28px));
+  z-index:9999;
+
+  padding:14px 14px 16px;
   border-radius:18px;
-  background:rgba(255,255,255,.05);
+  background:rgba(10,10,10,.72);
   border:1px solid rgba(255,255,255,.10);
-  box-shadow:0 10px 30px rgba(0,0,0,.45);
-  text-align:left;
+  box-shadow:0 10px 30px rgba(0,0,0,.55);
+  backdrop-filter: blur(10px);
 }
 
 .progress-title{
   font-weight:800;
   margin-bottom:10px;
-  font-size:1rem;
+  font-size:.95rem;
   color:#eaeaea;
 }
 .progress-title span{
   color:var(--green);
 }
 
+/* DESKTOP: 4 colunas */
 .progress-steps{
-  display:flex;
-  justify-content:space-between;
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
   gap:10px;
   font-size:.78rem;
   color:#bdbdbd;
   margin-bottom:10px;
-  flex-wrap:wrap;
+}
+.progress-steps div{
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
+/* BARRA */
 .progress-bar{
   position:relative;
   width:100%;
@@ -210,25 +219,25 @@ h1 span{color:var(--green)}
 
 .progress-fill{
   height:100%;
-  width:35%;
+  width:10%;
   border-radius:999px;
   background:linear-gradient(90deg,var(--green),var(--green-dark));
   box-shadow:0 0 20px rgba(0,255,136,.35);
-  transition:width .35s ease;
+  transition:width .25s ease;
 }
 
 .progress-pin{
   position:absolute;
   top:50%;
   transform:translate(-50%,-50%);
-  left:35%;
+  left:10%;
   width:18px;
   height:18px;
   border-radius:50%;
   background:#000;
   border:2px solid var(--green);
   box-shadow:0 0 18px rgba(0,255,136,.55);
-  transition:left .35s ease;
+  transition:left .25s ease;
 }
 
 /* GRID / CARDS */
@@ -285,7 +294,7 @@ h1 span{color:var(--green)}
 
 footer{text-align:center;padding:40px 20px;color:#777;font-size:.9rem}
 
-/* WHATSAPP (ATUALIZADO COM TEXTO + DIGITANDO + PULSAR) */
+/* WHATSAPP */
 .whatsapp-wrap{
   position:fixed;
   bottom:26px;
@@ -319,7 +328,6 @@ footer{text-align:center;padding:40px 20px;color:#777;font-size:.9rem}
   border-left:10px solid #0f0f0f;
   border-top:10px solid transparent;
   border-bottom:10px solid transparent;
-  filter:drop-shadow(0 0 0 rgba(255,255,255,.0));
 }
 
 .whatsapp{
@@ -342,6 +350,10 @@ footer{text-align:center;padding:40px 20px;color:#777;font-size:.9rem}
 }
 
 @media(max-width:768px){
+  body{
+    padding-top:155px;
+  }
+
   h1{font-size:2.2rem}
   .faq-grid{grid-template-columns:1fr}
   .video-box iframe{height:260px}
@@ -359,11 +371,35 @@ footer{text-align:center;padding:40px 20px;color:#777;font-size:.9rem}
     width:200px;
     max-width:70%;
   }
+
+  /* MOBILE: 2 colunas organizadas */
+  .progress-steps{
+    grid-template-columns:repeat(2, 1fr);
+    gap:8px 14px;
+    font-size:.75rem;
+  }
 }
 </style>
 </head>
 
 <body>
+
+<!-- BARRA FIXA -->
+<div class="progress-wrap">
+  <div class="progress-title">Você está aqui: <span id="progressLabel">Desconto ativo</span></div>
+
+  <div class="progress-steps">
+    <div id="step1">1) Chegou na página</div>
+    <div id="step2">2) Viu o desconto</div>
+    <div id="step3">3) Assiste o vídeo</div>
+    <div id="step4">4) Compra</div>
+  </div>
+
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill"></div>
+    <div class="progress-pin" id="progressPin"></div>
+  </div>
+</div>
 
 <div class="light l"></div>
 <div class="light r"></div>
@@ -373,38 +409,12 @@ footer{text-align:center;padding:40px 20px;color:#777;font-size:.9rem}
     <h1><span>CURSO</span> – Primeiro Voo Sem Medo</h1>
     <p class="lead">Aprenda a pilotar seu drone com segurança, sem medo de quebrar ou sofrer multas.</p>
 
-    <!-- BARRA DE PROGRESSO "VOCÊ ESTÁ AQUI" -->
-    <div class="progress-wrap">
-      <div class="progress-title">Você está aqui: <span>Desconto ativo</span></div>
-
-      <div class="progress-steps">
-        <div>1) Chegou na página</div>
-        <div>2) Viu o desconto</div>
-        <div>3) Assiste o vídeo</div>
-        <div>4) Compra</div>
-      </div>
-
-      <div class="progress-bar">
-        <div class="progress-fill" id="progressFill"></div>
-        <div class="progress-pin" id="progressPin"></div>
-      </div>
-    </div>
-
-    <!-- TIMER COM IMAGEM AO LADO ESQUERDO -->
     <div style="text-align:center;margin:25px 0 35px;">
-      <div style="
-        font-size:1.05rem;
-        font-weight:800;
-        margin-bottom:8px;
-      ">
+      <div style="font-size:1.05rem;font-weight:800;margin-bottom:8px;">
         Últimas horas com esse valor para iniciantes
       </div>
 
-      <div style="
-        font-size:.95rem;
-        color:#bdbdbd;
-        margin-bottom:18px;
-      ">
+      <div style="font-size:.95rem;color:#bdbdbd;margin-bottom:18px;">
         Esse desconto é limitado e não será mantido depois.
       </div>
 
@@ -517,7 +527,7 @@ footer{text-align:center;padding:40px 20px;color:#777;font-size:.9rem}
 
 <footer>© 2026 – CURSO Primeiro Voo Sem Medo</footer>
 
-<!-- WHATSAPP COM TEXTO DIGITANDO -->
+<!-- WHATSAPP -->
 <div class="whatsapp-wrap">
   <div class="whatsapp-bubble">
     <span id="whatsTyping"></span>
@@ -546,7 +556,6 @@ setInterval(()=>{
   document.getElementById("m").innerText=String(m).padStart(2,'0');
   document.getElementById("s").innerText=String(s).padStart(2,'0');
 
-  /* PULSO SINCRONIZADO (pisca leve a cada segundo) */
   timerIcon.classList.remove("pulse");
   void timerIcon.offsetWidth;
   timerIcon.classList.add("pulse");
@@ -556,28 +565,47 @@ setInterval(()=>{
 </script>
 
 <script>
-/* PROGRESSO "VOCÊ ESTÁ AQUI"
-   Ajuste os valores como quiser:
-   35% = viu o desconto
-*/
-const progressPercent = 35;
-
+/* PROGRESSO QUE ACOMPANHA A ROLAGEM */
 const fill = document.getElementById("progressFill");
 const pin = document.getElementById("progressPin");
+const label = document.getElementById("progressLabel");
 
-fill.style.width = progressPercent + "%";
-pin.style.left = progressPercent + "%";
+function updateProgress(){
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = docHeight > 0 ? (scrollTop / docHeight) : 0;
+
+  const percent = Math.min(100, Math.max(0, progress * 100));
+
+  fill.style.width = percent + "%";
+  pin.style.left = percent + "%";
+
+  /* Texto muda conforme avança */
+  if(percent < 20){
+    label.innerText = "Desconto ativo";
+  } else if(percent < 45){
+    label.innerText = "Entendendo o risco";
+  } else if(percent < 70){
+    label.innerText = "Vendo o que vai aprender";
+  } else if(percent < 90){
+    label.innerText = "Hora de decidir";
+  } else {
+    label.innerText = "Finalizando";
+  }
+}
+
+window.addEventListener("scroll", updateProgress);
+window.addEventListener("resize", updateProgress);
+updateProgress();
 </script>
 
-<!-- EFEITO DIGITANDO WHATSAPP -->
 <script>
+/* EFEITO DIGITANDO WHATSAPP */
 const el = document.getElementById("whatsTyping");
-
 const messageText = "Ficou alguma dúvida? Fale comigo!";
 
 let dotCount = 0;
 let typingInterval;
-let loopTimeout;
 
 function showTyping(){
   el.innerHTML = "digitando";
@@ -588,7 +616,7 @@ function showTyping(){
     el.innerHTML = "digitando" + ".".repeat(dotCount);
   }, 500);
 
-  loopTimeout = setTimeout(showMessage, 3200);
+  setTimeout(showMessage, 3200);
 }
 
 function showMessage(){
