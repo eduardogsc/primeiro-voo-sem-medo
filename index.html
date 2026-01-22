@@ -150,10 +150,61 @@ h1 span{color:var(--green)}
 }
 .faq h4{color:var(--green);margin-bottom:8px}
 
-.whatsapp{
+/* WHATSAPP COM TEXTO + PULSAR */
+.whatsapp-wrap{
   position:fixed;
   bottom:26px;
   right:26px;
+  z-index:999;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.whatsapp-text{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  align-items:flex-end;
+  text-align:right;
+  pointer-events:none;
+}
+
+.whatsapp-bubble{
+  max-width:190px;
+  padding:10px 12px;
+  border-radius:14px;
+  font-size:.92rem;
+  line-height:1.1;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);
+  color:#fff;
+  backdrop-filter:blur(8px);
+  box-shadow:0 10px 25px rgba(0,0,0,.35);
+  opacity:0;
+  transform:translateX(10px);
+  animation:popIn .35s ease forwards;
+}
+
+.whatsapp-bubble.small{
+  font-size:.88rem;
+  color:#eaeaea;
+  opacity:.95;
+}
+
+.whatsapp-bubble strong{
+  color:var(--green);
+  font-weight:800;
+}
+
+@keyframes popIn{
+  to{
+    opacity:1;
+    transform:translateX(0);
+  }
+}
+
+.whatsapp{
   width:62px;
   height:62px;
   background:#25d366;
@@ -161,8 +212,16 @@ h1 span{color:var(--green)}
   display:flex;
   align-items:center;
   justify-content:center;
-  z-index:999
+  box-shadow:0 12px 30px rgba(0,0,0,.45);
+  animation:waPulse 2.8s ease-in-out infinite;
 }
+
+@keyframes waPulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.08)}
+  100%{transform:scale(1)}
+}
+
 .whatsapp img{width:34px}
 
 footer{text-align:center;padding:40px 20px;color:#777;font-size:.9rem}
@@ -171,6 +230,11 @@ footer{text-align:center;padding:40px 20px;color:#777;font-size:.9rem}
   h1{font-size:2.2rem}
   .faq-grid{grid-template-columns:1fr}
   .video-box iframe{height:260px}
+
+  .whatsapp-bubble{
+    max-width:150px;
+    font-size:.85rem;
+  }
 }
 </style>
 </head>
@@ -283,9 +347,17 @@ footer{text-align:center;padding:40px 20px;color:#777;font-size:.9rem}
 
 <footer>© 2026 – CURSO Primeiro Voo Sem Medo</footer>
 
-<a class="whatsapp" href="https://wa.me/5521965792683" target="_blank">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
-</a>
+<!-- NOVO WHATSAPP COM TEXTO AO LADO -->
+<div class="whatsapp-wrap">
+  <div class="whatsapp-text">
+    <div class="whatsapp-bubble small">Ficou alguma dúvida?</div>
+    <div class="whatsapp-bubble">fale comigo! <strong>💬</strong></div>
+  </div>
+
+  <a class="whatsapp" href="https://wa.me/5521965792683" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+  </a>
+</div>
 
 <script>
 const totalSeconds = 15 * 24 * 60 * 60;
@@ -305,3 +377,4 @@ setInterval(()=>{
 
 </body>
 </html>
+
